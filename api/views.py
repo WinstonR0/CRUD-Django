@@ -1,12 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import generics
 from .models import Producto
 from .serializer import ProductoSerializer
 
-class ProductoViewSet(viewsets.ModelViewSet):
-    """
-    ViewSet que permite realizar todas las operaciones CRUD
-    sobre el modelo Producto utilizando los métodos proporcionados
-    por ModelViewSet (list, create, retrieve, update, destroy).
-    """
-    queryset = Producto.objects.all().order_by('-creado')
+class ProductoList(generics.ListCreateAPIView):
+    queryset = Producto.objects.all()
+    serializer_class = ProductoSerializer
+
+class ProductoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
